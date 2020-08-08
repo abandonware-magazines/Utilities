@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # Other
-magazine_extractor/magazine_extractor/magazines.json
+output/

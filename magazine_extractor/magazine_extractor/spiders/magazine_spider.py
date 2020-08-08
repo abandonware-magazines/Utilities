@@ -9,7 +9,8 @@ class MagazineSpider(CrawlSpider):
         'HTTPCACHE_ENABLED': True,
         'ITEM_PIPELINES': {
             'magazine_extractor.pipelines.MagazineToJsonPipeline': 100,
-        }
+        },
+        'LOG_LEVEL': 'INFO'
     }
 
     allowed_domains = ['sites.google.com']
@@ -24,6 +25,7 @@ class MagazineSpider(CrawlSpider):
     
 
     def parse_magazine(self, response):
+        self.logger.info('Parse function called on "%s"', response.url)
         trs = response.xpath('//table[@id="goog-ws-list-table"]/tbody/tr')
         for tr in trs:
             if "ydywt-hrwnwt" in response.url:

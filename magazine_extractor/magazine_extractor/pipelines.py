@@ -6,20 +6,34 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+
+from magazine_extractor import settings
 from collections import defaultdict
-import json
+from pathlib import Path
+import json, os
+
+OUTPUT_PATH = os.path.join(settings.PROJECT_ROOT, "output")
 
 class MagazineToJsonPipeline:
     def open_spider(self, spider):
         self.magazines = defaultdict(list)
 
     def close_spider(self, spider):
-        with open("magazines.json", "w", encoding="utf-8") as f:
+        Path(OUTPUT_PATH).mkdir(parents = True, exist_ok = True)
+        file_path = os.path.join(OUTPUT_PATH, "magazines.json")
+        spider.logger.info('Writing results to "%s"', file_path)
+        with open(file_path, "w", encoding="utf-8") as f:
             f.write(json.dumps([self.magazines], ensure_ascii = False, indent = 4))
 
     def process_item(self, item, spider):
+        issue_str = ", גליון "
+        if issue_str in item["name"]:
+            issue = item["name"].partition(issue_str)[-1]
+        else:
+            issue = item["name"]
+
         self.magazines[item["from_url"]].append({
-                                                    "name": item["name"], 
+                                                    "issue": issue, 
                                                     "link": item["link"],
                                                     "scanned_by": item["scanned_by"]
                                                 })
