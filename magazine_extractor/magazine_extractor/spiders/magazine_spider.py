@@ -42,10 +42,3 @@ class MagazineSpider(CrawlSpider):
                     "link"       : tr.xpath('td[1]/a/@href').get(),
                     "scanned_by" : tr.xpath('td[2]/text()').get().replace("\xa0", "")
                 }
-
-
-"""
-[
-    { "magazine": "Wiz", "issues": [{"issue": 5, "link": "asdf", "scanned_by": "Yaniv"}] }
-]
-"""
