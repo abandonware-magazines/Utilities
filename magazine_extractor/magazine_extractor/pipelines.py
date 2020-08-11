@@ -22,8 +22,16 @@ class MagazineToJsonPipeline:
         Path(OUTPUT_PATH).mkdir(parents = True, exist_ok = True)
         file_path = os.path.join(OUTPUT_PATH, "magazines.json")
         spider.logger.info('Writing results to "%s"', file_path)
+        magazines_obj = []
+        for magazine_url, magazine_issues in self.magazines.items():
+            magazines_obj.append({
+                "from_url": magazine_url,
+                "name": "",
+                "heb_name": "",
+                "issues": magazine_issues
+            })
         with open(file_path, "w", encoding="utf-8") as f:
-            f.write(json.dumps([self.magazines], ensure_ascii = False, indent = 4))
+            f.write(json.dumps(magazines_obj, ensure_ascii = False, indent = 4))
 
     def process_item(self, item, spider):
         issue_str = ", גליון "
