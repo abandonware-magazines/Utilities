@@ -27,7 +27,6 @@ class MagazineToJsonPipeline:
             magazines_obj.append({
                 "from_url": magazine_url,
                 "name": "",
-                "heb_name": "",
                 "issues": magazine_issues
             })
         with open(file_path, "w", encoding="utf-8") as f:
