@@ -131,3 +131,5 @@ dmypy.json
 # Other
 output/
 .vscode
+OCR/done.txt
+OCR/done_debug.txt
