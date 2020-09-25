@@ -133,3 +133,5 @@ output/
 .vscode
 OCR/done.txt
 OCR/done_debug.txt
+OCR/train/tesstrain
+OCR/magazine_db.ini

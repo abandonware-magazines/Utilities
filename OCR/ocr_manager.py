@@ -30,7 +30,7 @@ def get_files(base_folder, extension):
 def perform_ocr(input_queue, output_queue):
     while not input_queue.empty():
         path = input_queue.get()
-        output = ocr.perform_ocr(path, heuristic_autocorrect = True)
+        output = ocr.perform_ocr(path, heuristic_autocorrect = False)
         output_queue.put(OCRResult(path, output))
 
 def path_to_magazine_details(path):
@@ -61,7 +61,7 @@ def main(base_folder, progress_db_path):
         text_queue = multiprocessing.Queue()
         done_queue = multiprocessing.Queue()
 
-        mag_db = magazine_db.MagazineDB()
+        mag_db = magazine_db.TextFileMagazineDB()
 
         progress_db.seek(0)
         done_files = set(progress_db.read().splitlines())
