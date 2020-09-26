@@ -36,7 +36,8 @@ def apply_heuristic_autocorrect(txt):
 
 
 def perform_ocr(input_img_path, heuristic_autocorrect = False):
-    output = pytesseract.image_to_string(Image.open(input_img_path), lang = 'eng+heb', config = '--psm 1')
+    output = pytesseract.image_to_string(Image.open(input_img_path), lang = 'heb+eng', config = '--psm 1')
+    output = output.strip(' \t\n\r\u05b0\x0c\u200e')
     if heuristic_autocorrect:
         output = apply_heuristic_autocorrect(output)
     return output
