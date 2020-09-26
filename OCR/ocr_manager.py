@@ -30,7 +30,7 @@ def get_files(base_folder, extension):
 def perform_ocr(input_queue, output_queue):
     while not input_queue.empty():
         path = input_queue.get()
-        output = ocr.perform_ocr(path, heuristic_autocorrect = False)
+        output = ocr.perform_ocr(path)
         output_queue.put(OCRResult(path, output))
 
 def path_to_magazine_details(path):
